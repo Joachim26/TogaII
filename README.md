@@ -1,1 +1,5 @@
-Readme...
+Toga_II v1.2.1a modified for human play 
+with additional UCI-options: 
+
+Movetime limit from 1 to 10000 ms  
+Depth limit from 1 to 30.

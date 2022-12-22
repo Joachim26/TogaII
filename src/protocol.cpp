@@ -402,9 +402,9 @@ static void parse_go(char string[]) {
 
    // JAS
    int option_movetime = 0;
-   option_movetime = option_get_int("Search Time");
+   option_movetime = option_get_int("Search Time in ms");
    if (option_movetime > 0) {
-   	  movetime = option_movetime;
+   	  movetime = option_movetime / 1000.0;
    }
    // JAS end
 

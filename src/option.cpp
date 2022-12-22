@@ -28,7 +28,7 @@ static option_t Option[] = {
 
    // JAS
    // search X seconds for the best move, equal to "go movetime"
-   { "Search Time",  true, "0",   "spin",  "min 0 max 10000", NULL },
+   { "Search Time in ms",  true, "0",   "spin",  "min 0 max 10000", NULL },
    // search X plies deep, equal to "go depth"
    { "Search Depth",  true, "0",   "spin",  "min 0 max 30", NULL },
    // JAS end

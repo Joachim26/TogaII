@@ -1,8 +1,8 @@
-name: SFnpsArmWinBinariesUpload
+name: Toga_Armv8BinaryUpload
 on:
   workflow_dispatch:
 jobs:
-  SFnpsArmTest:
+  TogaArmv8Build:
     name: ${{ matrix.config.name }}
     runs-on: ${{ matrix.config.os }}
     env:
@@ -27,7 +27,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Test armv8 build
+      - name: Build armv8
         if: ${{ matrix.config.run_armv8_tests }}
         run: |
             export PATH=$ANDROID_NDK_HOME:$PATH

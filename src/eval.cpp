@@ -18,6 +18,8 @@
 #include "util.h"
 #include "value.h"
 #include "vector.h"
+#include <chrono>
+#include <thread>
 
 // macros
 
@@ -341,6 +343,13 @@ int eval(const board_t * board, int alpha, int beta) {
      lazy_eval = ((opening * (256 - mat_info->phase)) + (endgame * mat_info->phase)) / 256;
 
      ASSERT(eval>=-ValueEvalInf&&eval<=+ValueEvalInf);
+
+    //waitms
+    int option_waitms = option_get_int("Wait For in ms");
+    if (option_waitms > 0) {
+      std::this_thread::sleep_for(std::chrono::milliseconds(option_waitms));
+    }
+    //waitms 
 
 	 if (COLOUR_IS_BLACK(board->turn)) lazy_eval = -lazy_eval;
 	 if (lazy_eval - lazy_eval_cutoff >= beta)

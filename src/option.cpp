@@ -31,6 +31,8 @@ static option_t Option[] = {
    { "Search Time in ms",  true, "0",   "spin",  "min 0 max 10000", NULL },
    // search X plies deep, equal to "go depth"
    { "Search Depth",  true, "0",   "spin",  "min 0 max 30", NULL },
+   // wait for X ms in eval
+   { "Wait For in ms",  true, "0",   "spin",  "min 0 max 25", NULL },
    // JAS end
 
 

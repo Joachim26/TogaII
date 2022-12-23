@@ -1,8 +1,8 @@
-name: Toga_Armv8BinaryUpload
+name: Toga_Armv7BinaryUpload
 on:
   workflow_dispatch:
 jobs:
-  TogaArmv8Build:
+  TogaArmv7Build:
     name: ${{ matrix.config.name }}
     runs-on: ${{ matrix.config.os }}
     env:
@@ -11,11 +11,11 @@ jobs:
     strategy:
       matrix:
         config:
-          - name: Ubuntu 22.04 NDK armv8
+          - name: Ubuntu 22.04 NDK armv7
             os: ubuntu-22.04
-            compiler: aarch64-linux-android21-clang++
+            compiler: armv7a-linux-androideabi19-clang++
             comp: ndk
-            run_armv8_tests: true
+            run_armv7_tests: true
             shell: bash {0}
 
     defaults:
@@ -27,30 +27,30 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Build armv8
-        if: ${{ matrix.config.run_armv8_tests }}
+      - name: Build armv7
+        if: ${{ matrix.config.run_armv7_tests }}
         run: |
             export PATH=$ANDROID_NDK_HOME:$PATH
             export PATH=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH
 
             cd ../jni
-            cp Application_v8.mk Application.mk
+            cp Application_v7.mk Application.mk
             ndk-build
-            cd ../libs/arm64-v8a
-            cp Fruit ../../TogaII_armv8
+            cd ../libs/armeabi-v7a
+            cp Fruit ../../TogaII_armv7
            
       - uses: xresloader/upload-to-github-release@v1
-        if: ${{ matrix.config.run_armv8_tests }}
+        if: ${{ matrix.config.run_armv7_tests }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           overwrite: true
-          file: "TogaII_armv8"
+          file: "TogaII_armv7"
           update_latest_release: true
               
       - uses: actions/upload-artifact@v3
-        if: ${{ matrix.config.run_armv8_tests }}
+        if: ${{ matrix.config.run_armv7_tests }}
         with:
-          name: TogaII_armv8
-          path: TogaII_armv8
-          #path: /home/runner/work/StockfishNPS/StockfishNPS/SFnps_armv8
+          name: TogaII_armv7
+          path: TogaII_armv7
+

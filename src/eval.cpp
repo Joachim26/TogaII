@@ -344,12 +344,6 @@ int eval(const board_t * board, int alpha, int beta) {
 
      ASSERT(eval>=-ValueEvalInf&&eval<=+ValueEvalInf);
 
-    //waitms
-    int option_waitms = option_get_int("Wait For in ms");
-    if (option_waitms > 0) {
-      std::this_thread::sleep_for(std::chrono::milliseconds(option_waitms));
-    }
-    //waitms 
 
 	 if (COLOUR_IS_BLACK(board->turn)) lazy_eval = -lazy_eval;
 	 if (lazy_eval - lazy_eval_cutoff >= beta)
@@ -407,6 +401,13 @@ int eval(const board_t * board, int alpha, int beta) {
    if (COLOUR_IS_BLACK(board->turn)) eval = -eval;
 
    ASSERT(!value_is_mate(eval));
+
+   // waitms
+   int option_waitms = option_get_int("Wait For in ms");
+   if (option_waitms > 0) {
+     std::this_thread::sleep_for(std::chrono::milliseconds(option_waitms));
+   }
+   // waitms 
 
    return eval;
 }

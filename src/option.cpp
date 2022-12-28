@@ -28,7 +28,7 @@ static option_t Option[] = {
 
    // JAS
    { "Search Time in ms",  true, "0",   "spin",  "min 0 max 10000", NULL },
-   { "Search Nodes",  true, "0",   "spin",  "min 0 max 100000", NULL },
+   { "Search Nodes",  true, "0",   "spin",  "min 0 max 32000", NULL },
    { "Search Depth",  true, "0",   "spin",  "min 0 max 30", NULL },
    { "Wait For in ms",  true, "0",   "spin",  "min 0 max 5", NULL },
    // JAS end

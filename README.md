@@ -4,6 +4,6 @@ with additional UCI-options:
 Movetime Limit from 1 to 10000 ms, 
 Nodes Limit from 1 to 32000,   
 Depth Limit from 1 to 30,  
-Wait For from 1 to 25 ms, e.g.  
+Wait For from 1 to 25 ms, i.e.   
 nps from 1000 to 40.
 

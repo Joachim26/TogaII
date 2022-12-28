@@ -52,6 +52,8 @@ struct search_input_t {
    board_t board[1];
    list_t list[1];
    bool infinite;
+   bool nodes_is_limited;
+   int nodes_limit;
    bool depth_is_limited;
    int depth_limit;
    int multipv;

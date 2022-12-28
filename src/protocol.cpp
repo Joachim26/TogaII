@@ -369,15 +369,22 @@ static void parse_go(char string[]) {
 
    search_clear();
 
-   // depth limit
+   // nodes/depth limit
 
    // JAS
+   int option_nodes = 0;
+   option_nodes = option_get_int("Search Nodes");
+   if (option_nodes > 0) nodes = option_nodes;
+
    int option_depth = 0;
    option_depth = option_get_int("Search Depth");
-   if (option_depth > 0) {
-   	  depth = option_depth;
-   }
+   if (option_depth > 0) depth = option_depth;
    // JAS end
+
+   if (nodes >= 0) {
+      SearchInput->nodes_is_limited = true;
+      SearchInput->nodes_limit = nodes;
+   } 
 
    if (depth >= 0) {
       SearchInput->depth_is_limited = true;

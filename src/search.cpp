@@ -282,7 +282,7 @@ void search() {
 		  // stop search?
 
         if (SearchInput->nodes_is_limited && SearchCurrent->multipv >= SearchInput->multipv
-		   && node_nb >= SearchInput->nodes_limit) {
+		   && SearchCurrent->node_nb >= SearchInput->nodes_limit) {
 			 SearchRoot->flag = true;
 		  }
 

@@ -101,8 +101,8 @@ void search_clear() {
 
    SearchInfo->can_stop = false;
    SearchInfo->stop = false;
-   SearchInfo->check_nb = 10000; // was 100000
-   SearchInfo->check_inc = 10000; // was 100000
+   SearchInfo->check_nb = 10;
+   SearchInfo->check_inc = 10;
    SearchInfo->last_time = 0.0;
 
    // SearchBest

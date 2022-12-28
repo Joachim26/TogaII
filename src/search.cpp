@@ -91,6 +91,8 @@ void search_clear() {
    // SearchInput
 
    SearchInput->infinite = false;
+   SearchInput->nodes_is_limited = false;
+   SearchInput->nodes_limit = 0;
    SearchInput->depth_is_limited = false;
    SearchInput->depth_limit = 0;
    SearchInput->time_is_limited = false;
@@ -278,6 +280,11 @@ void search() {
 		  SearchRoot->last_value = SearchBest[0].value;
 
 		  // stop search?
+
+      if (SearchInput->nodes_is_limited && SearchCurrent->multipv >= SearchInput->multipv
+		   && node_nb >= SearchInput->nodes_limit) {
+			 SearchRoot->flag = true;
+		  }
 
 		  if (SearchInput->depth_is_limited && SearchCurrent->multipv >= SearchInput->multipv
 		   && depth >= SearchInput->depth_limit) {
@@ -500,6 +507,11 @@ void search_check() {
    search_send_stat();
 
    if (UseEvent) event();
+   
+   if (SearchInput->nodes_is_limited
+    && SearchRoot->node_nb > SearchInput->nodes_limit) {
+      SearchRoot->flag = true;
+   }
 
    if (SearchInput->depth_is_limited
     && SearchRoot->depth > SearchInput->depth_limit) {

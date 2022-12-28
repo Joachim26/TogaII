@@ -27,11 +27,9 @@ static option_t Option[] = {
    { "Hash", true, "16", "spin", "min 4 max 1024", NULL },
 
    // JAS
-   // search X seconds for the best move, equal to "go movetime"
    { "Search Time in ms",  true, "0",   "spin",  "min 0 max 10000", NULL },
-   // search X plies deep, equal to "go depth"
+   { "Search Nodes",  true, "0",   "spin",  "min 0 max 100000", NULL },
    { "Search Depth",  true, "0",   "spin",  "min 0 max 30", NULL },
-   // wait for X ms in eval
    { "Wait For in ms",  true, "0",   "spin",  "min 0 max 5", NULL },
    // JAS end
 

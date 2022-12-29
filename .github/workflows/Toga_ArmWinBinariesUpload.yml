@@ -15,7 +15,7 @@ jobs:
             os: ubuntu-22.04
             compiler: aarch64-linux-android21-clang++
             comp: ndk
-            run_armv8_comp: true
+            run_armv8_comp: false
             shell: bash {0}
             
           - name: Windows 2022 Mingw-w64 GCC x86_64
@@ -71,7 +71,7 @@ jobs:
           path: TogaII_armv8
        
       - name: win11 build
-        if: ${{ matrix.config.run_win11_tests }}
+        if: ${{ matrix.config.run_win11_comp }}
         run: |
           make
           #make -j profile-build ARCH=x86-64-modern COMP=$COMP

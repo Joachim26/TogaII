@@ -1,4 +1,4 @@
-name: SFnpsArmWinBinariesUpload
+name: ArmWinBinariesUpload
 on:
   workflow_dispatch:
 jobs:
@@ -15,14 +15,14 @@ jobs:
             os: ubuntu-22.04
             compiler: aarch64-linux-android21-clang++
             comp: ndk
-            run_armv8_tests: true
+            run_armv8_comp: true
             shell: bash {0}
             
           - name: Windows 2022 Mingw-w64 GCC x86_64
             os: windows-2022
             compiler: g++
             comp: mingw
-            run_win11_tests: true
+            run_win11_comp: true
             msys_sys: mingw64
             msys_env: x86_64-gcc
             shell: msys2 {0}   
@@ -43,37 +43,32 @@ jobs:
           msystem: ${{ matrix.config.msys_sys }}
           install: mingw-w64-${{ matrix.config.msys_env }} make git
 
-      - name: Download the used network from the fishtest framework
-        run: make net
-
-      - name: Test armv8 build
+      - name: armv8 build
         if: ${{ matrix.config.run_armv8_tests }}
         run: |
             export PATH=$ANDROID_NDK_HOME:$PATH
             export PATH=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH
 
-            cp nn-*.nnue ../jni
             cd ../jni
             cp Application_v8.mk Application.mk
             ndk-build
             cd ../libs/arm64-v8a
-            cp Stockfish ../../SFnps_armv8
-           
+            cp Fruit ../../TogaII_armv8
+          
       - uses: xresloader/upload-to-github-release@v1
-        if: ${{ matrix.config.run_armv8_tests }}
+        if: ${{ matrix.config.run_armv8_comp }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           overwrite: true
-          file: "SFnps_armv8" 
+          file: "TogaII_armv8" 
           update_latest_release: true
               
       - uses: actions/upload-artifact@v3
-        if: ${{ matrix.config.run_armv8_tests }}
+        if: ${{ matrix.config.run_armv8_comp }}
         with:
-          name: SFnps-armv8
-          path: SFnps_armv8
-          #path: /home/runner/work/StockfishNPS/StockfishNPS/SFnps_armv8
+          name: TogaII-armv8
+          path: TogaII_armv8
        
       - name: win11 build
         if: ${{ matrix.config.run_win11_tests }}
@@ -81,21 +76,20 @@ jobs:
           make clean
           make -j profile-build ARCH=x86-64-modern COMP=$COMP
           make strip ARCH=x86-64-modern COMP=$COMP
-          cp stockfish.exe ../SFnps_modern.exe
+          cp Fruit.exe ../TogaII_modern.exe
         
       - uses: xresloader/upload-to-github-release@v1
-        if: ${{ matrix.config.run_win11_tests }}
+        if: ${{ matrix.config.run_win11_comp }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           overwrite: true
-          file: "SFnps_modern.exe"
+          file: "TogaII_modern.exe"
           update_latest_release: true
         
       - uses: actions/upload-artifact@v3
         if: ${{ matrix.config.run_win11_tests }}
         with:
-          name: SFnps-modern
-          path: SFnps_modern.exe
-          #path: D:\a\StockfishNPS\StockfishNPS\SFnps_modern.exe   
+          name: TogaII-modern
+          path: TogaIi_modern.exe 
           

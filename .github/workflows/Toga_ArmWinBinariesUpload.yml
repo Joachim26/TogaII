@@ -1,4 +1,4 @@
-name: ArmWinBinariesUpload
+name: Toga_ArmWinBinariesUpload
 on:
   workflow_dispatch:
 jobs:

@@ -88,8 +88,8 @@ jobs:
           update_latest_release: true
         
       - uses: actions/upload-artifact@v3
-        if: ${{ matrix.config.run_win11_tests }}
+        if: ${{ matrix.config.run_win11_comp }}
         with:
-          name: TogaII-modern
-          path: TogaIi_modern.exe 
+          name: TogaII_modern
+          path: TogaII_modern.exe 
           

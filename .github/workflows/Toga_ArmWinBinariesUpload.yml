@@ -44,7 +44,7 @@ jobs:
           install: mingw-w64-${{ matrix.config.msys_env }} make git
 
       - name: armv8 build
-        if: ${{ matrix.config.run_armv8_tests }}
+        if: ${{ matrix.config.run_armv8_comp }}
         run: |
             export PATH=$ANDROID_NDK_HOME:$PATH
             export PATH=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH
@@ -73,9 +73,9 @@ jobs:
       - name: win11 build
         if: ${{ matrix.config.run_win11_tests }}
         run: |
-          make clean
-          make -j profile-build ARCH=x86-64-modern COMP=$COMP
-          make strip ARCH=x86-64-modern COMP=$COMP
+          make
+          #make -j profile-build ARCH=x86-64-modern COMP=$COMP
+          #make strip ARCH=x86-64-modern COMP=$COMP
           cp Fruit.exe ../TogaII_modern.exe
         
       - uses: xresloader/upload-to-github-release@v1

@@ -1,0 +1,93 @@
+name: Toga_ArmWinBinariesUpload
+on:
+  workflow_dispatch:
+jobs:
+  SFnpsArmTest:
+    name: ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
+    env:
+      COMPILER: ${{ matrix.config.compiler }}
+      COMP: ${{ matrix.config.comp }} 
+    strategy:
+      matrix:
+        config:
+          - name: Ubuntu 22.04 NDK armv7
+            os: ubuntu-22.04
+            compiler: armv7a-linux-androideabi19-clang++
+            comp: ndk
+            run_armv7_comp: false
+            shell: bash {0}
+            
+          - name: Windows 2022 Mingw-w64 GCC x86_32
+            os: windows-2022
+            compiler: g++
+            comp: mingw
+            run_win11_comp: true
+            msys_sys: mingw32
+            msys_env: i686
+            shell: msys2 {0}   
+
+    defaults:
+      run:
+        working-directory: src
+        shell: ${{ matrix.config.shell }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup msys and install required packages
+        if: runner.os == 'Windows'
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: ${{ matrix.config.msys_sys }}
+          install: mingw-w64-${{ matrix.config.msys_env }} make git
+
+      - name: armv7 build
+        if: ${{ matrix.config.run_armv7_comp }}
+        run: |
+            export PATH=$ANDROID_NDK_HOME:$PATH
+            export PATH=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH
+
+            cd ../jni
+            cp Application_v7.mk Application.mk
+            ndk-build
+            cd ../libs/armeabi-v7a
+            cp Fruit ../../TogaII_armv7
+          
+      - uses: xresloader/upload-to-github-release@v1
+        if: ${{ matrix.config.run_armv7_comp }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          overwrite: true
+          file: "TogaII_armv7" 
+          update_latest_release: true
+              
+      - uses: actions/upload-artifact@v3
+        if: ${{ matrix.config.run_armv7_comp }}
+        with:
+          name: TogaII-armv7
+          path: TogaII_armv7
+       
+      - name: win11 build
+        if: ${{ matrix.config.run_win11_comp }}
+        run: |
+          make
+          cp fruit ../TogaII_win32.exe
+        
+      - uses: xresloader/upload-to-github-release@v1
+        if: ${{ matrix.config.run_win11_comp }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          overwrite: true
+          file: "TogaII_win32.exe"
+          update_latest_release: true
+        
+      - uses: actions/upload-artifact@v3
+        if: ${{ matrix.config.run_win11_comp }}
+        with:
+          name: TogaII_win32
+          path: TogaII_win32.exe 
+          

@@ -21,7 +21,7 @@ jobs:
           - name: Windows 2022 Mingw-w64 GCC x86_32
             os: windows-2022
             compiler: g++
-            comp: mingw
+            comp: mingw32
             run_win11_comp: true
             msys_sys: mingw32
             msys_env: i686
@@ -41,7 +41,7 @@ jobs:
         uses: msys2/setup-msys2@v2
         with:
           msystem: ${{ matrix.config.msys_sys }}
-          install: mingw-w64-${{ matrix.config.msys_env }} make git
+          install: mingw-w32-${{ matrix.config.msys_env }} make git
 
       - name: armv7 build
         if: ${{ matrix.config.run_armv7_comp }}

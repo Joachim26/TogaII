@@ -20,16 +20,16 @@ clean:
 
 CXX      = g++
 CXXFLAGS = -pipe
-LDFLAGS  = -lm
+LDFLAGS  = -lm -static
 
 # C++
 
-CXXFLAGS += -fno-exceptions -fno-rtti
+#  CXXFLAGS += -fno-exceptions -fno-rtti
 
 # optimisation
 
-CXXFLAGS += -O3 -fstrict-aliasing
-CXXFLAGS += -fomit-frame-pointer
+#  CXXFLAGS += -O3 -fstrict-aliasing
+#  CXXFLAGS += -fomit-frame-pointer
 # CXXFLAGS += -march=athlon-xp # SELECT ME
 
 # strip

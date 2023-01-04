@@ -21,7 +21,7 @@ jobs:
           - name: Windows 2022 Mingw-w64 GCC x86_32
             os: windows-2022
             compiler: g++
-            comp: mingw
+            comp: mingw32
             run_win11_comp: true
             msys_sys: mingw32
             msys_env: i686

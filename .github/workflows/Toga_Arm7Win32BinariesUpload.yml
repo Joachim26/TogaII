@@ -41,7 +41,7 @@ jobs:
         uses: msys2/setup-msys2@v2
         with:
           msystem: ${{ matrix.config.msys_sys }}
-          install: mingw-w32-${{ matrix.config.msys_env }} make git
+          install: mingw-w64-${{ matrix.config.msys_env }} make git
 
       - name: armv7 build
         if: ${{ matrix.config.run_armv7_comp }}

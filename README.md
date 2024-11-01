@@ -1,5 +1,5 @@
 Toga_II v1.2.1a (by Thomas Gaksch and Fabien Letouzey) modified for human play 
-with additional UCI-options: 
+with additional UCI-options:   
 
 Movetime Limit from 1 to 10000 ms,  
 Nodes Limit from 1 to 32000,   
